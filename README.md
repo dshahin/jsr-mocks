@@ -19,6 +19,7 @@ jsr-mocks will expect a global object named $config with a property called mocks
 <div id="ready2" class="ready"><img src="http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif" alt="loading"/></div>
 <div id="ready3" class="ready"><img src="http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif" alt="loading"/></div>
 <script src="/static/bower_components/jquery/dist/jquery.js"></script>
+<script src="/static/js/myOtherModule.js"></script>
 <!-- first resolve VF variables into $config, our only global object -->
 <script>
 var $config = {
@@ -51,6 +52,7 @@ function myCallback(args){
 <script src="/static/bower_components/jsr-mocks/dist/jsr-mocks.js"></script>
 <!-- now our main script can call JSR methods in VF and mock methods in HTML Page with same syntax -->
 <script src="/static/js/main.js"></script>
+
 ```
 
 main.js can now look like this
@@ -67,7 +69,7 @@ $(document).ready(function(){
 			console.log('mock result:',result);
 		 	if(event.status){
 
-				$.myModule({backgroundColor:'lightgreen',selector: '#ready2', message: result.message });
+				$.myOtherModule({backgroundColor:'lightgreen',selector: '#ready2', message: result.message });
 		 	}
 		}
 	);
@@ -79,7 +81,7 @@ $(document).ready(function(){
 			console.log('mock result:',result);
 		 	if(event.status){
 
-				$.myModule({backgroundColor:'lightblue',selector: '#ready3', message: result.message});
+				$.myOtherModule({backgroundColor:'lightblue',selector: '#ready3', message: result.message});
 
 		 	}
 		}
