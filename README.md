@@ -12,30 +12,30 @@ jsr-mocks will expect a global object named $config with a property called mocks
 ```html
 <!-- first resolve VF variables into $config, our only global object -->
 <script>
-	var $config = {
-		jsr: {
-			myFunction :'{!$RemoteAction.MyCustomController.myFunction}',
-			myOtherFunction :'{!$RemoteAction.MyCustomController.myOtherFunction}'
-		},
-		mocks :{
-			'{!$RemoteAction.MyCustomController.myFunction}' : {
-				timeout : 2000, //2 seconds with inline callback
-				method : function(args){   
-					console.log('args',args);
-					return { message:  args[1]}
-				}
-			},
-			'{!$RemoteAction.MyCustomController.myOtherFunction}' : {
-				timeout : 3000, //3 seconds with named callback function
-				method : myCallback
+var $config = {
+	jsr: {
+		myFunction :'{!$RemoteAction.MyCustomController.myFunction}',
+		myOtherFunction :'{!$RemoteAction.MyCustomController.myOtherFunction}'
+	},
+	mocks :{
+		'{!$RemoteAction.MyCustomController.myFunction}' : {
+			timeout : 2000, //2 seconds with inline callback
+			method : function(args){   
+				console.log('args',args);
+				return { message:  args[1]}
 			}
+		},
+		'{!$RemoteAction.MyCustomController.myOtherFunction}' : {
+			timeout : 3000, //3 seconds with named callback function
+			method : myCallback
 		}
-	}; 
-
-	function myCallback(args){
-		console.log('args',args);
-		return { message:  args[1] + ' says the other callback'}
 	}
+}; 
+
+function myCallback(args){
+	console.log('args',args);
+	return { message:  args[1] + ' says the other callback'}
+}
 	
 </script>
 <!-- since this is not a VF page, we load a shim library instead for JSR calls -->
