@@ -13,7 +13,7 @@
 						event = {status : true};
 					setTimeout(function(){
 						callback(result,event);
-					},$config.mockTimeout);
+					},mock.timeout);
 				}
 			}
 		}
