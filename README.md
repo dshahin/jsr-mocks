@@ -19,23 +19,25 @@ jsr-mocks will expect a global object named $config with a property called mocks
 		},
 		mocks :{
 			'{!$RemoteAction.MyCustomController.myFunction}' : {
-				timeout : 2000,
-				method : function(args){
+				timeout : 2000, //2 seconds with inline callback
+				method : function(args){   
 					console.log('args',args);
 					return { message:  args[1]}
 				}
 			},
 			'{!$RemoteAction.MyCustomController.myOtherFunction}' : {
-				timeout : 3000,
-				method : function(args){
-					console.log('args',args);
-					return { message:  args[1]}
-				}
+				timeout : 3000, //3 seconds with named callback function
+				method : myCallback
 			}
 		}
 	}; 
 
-	</script>
+	function myCallback(args){
+		console.log('args',args);
+		return { message:  args[1] + ' says the other callback'}
+	}
+	
+</script>
 	<!-- since this is not a VF page, we load a shim library instead for JSR calls -->
 	<script src="/static/bower_components/jsr-mocks/dist/jsr-mocks.js"></script>
 	<!-- now our main script can call JSR methods in VF and mock methods in HTML Page with same syntax -->
