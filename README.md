@@ -10,6 +10,15 @@ intallation
 ```bower install jsr-mocks```
 jsr-mocks will expect a global object named $config with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
 ```html
+<head>
+
+	<link rel="stylesheet" href="/static/css/main.css" />
+</head>
+
+<div id="ready" class="ready">I am ready already</div>
+<div id="ready2" class="ready"><img src="http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif" alt="loading"/></div>
+<div id="ready3" class="ready"><img src="http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif" alt="loading"/></div>
+<script src="/static/bower_components/jquery/dist/jquery.js"></script>
 <!-- first resolve VF variables into $config, our only global object -->
 <script>
 var $config = {
@@ -42,4 +51,39 @@ function myCallback(args){
 <script src="/static/bower_components/jsr-mocks/dist/jsr-mocks.js"></script>
 <!-- now our main script can call JSR methods in VF and mock methods in HTML Page with same syntax -->
 <script src="/static/js/main.js"></script>
+```
+
+main.js can now look like this
+
+```javascript
+$(document).ready(function(){
+
+	//this is where your app page logic lives
+	
+	Visualforce.remoting.Manager.invokeAction (
+		$config.jsr.myFunction,
+		'now I am ready',
+		function(result,event){
+			console.log('mock result:',result);
+		 	if(event.status){
+
+				$.myModule({backgroundColor:'lightgreen',selector: '#ready2', message: result.message });
+		 	}
+		}
+	);
+
+	Visualforce.remoting.Manager.invokeAction (
+		$config.jsr.myOtherFunction,
+		'and I am ready now too',
+		function(result,event){
+			console.log('mock result:',result);
+		 	if(event.status){
+
+				$.myModule({backgroundColor:'lightblue',selector: '#ready3', message: result.message});
+
+		 	}
+		}
+	);
+
+});
 ```
