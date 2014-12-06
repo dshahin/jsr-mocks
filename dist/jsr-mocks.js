@@ -1,4 +1,6 @@
-(function(global, $, $mocks){
+(function(global, $, $config){
+
+	var $mocks = $config.mocks;
 	
 	global.Visualforce = {
 		//Visualforce.remoting.Manager.invokeAction
@@ -16,4 +18,4 @@
 			}
 		}
 	}
-})(window, jQuery, $mocks);
+})(window, jQuery, $config);
