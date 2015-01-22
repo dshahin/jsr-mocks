@@ -8,7 +8,7 @@ Use to test local versions of single page salesforce apps without deploying to s
 intallation
 ===========
 ```bower install jsr-mocks```
-jsr-mocks will expect a global object named $config with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
+jsr-mocks will expect a global object named ```configSettings``` with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
 ```html
 <head>
 
