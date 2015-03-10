@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jsrMocks', [])
-    .provider('Visualforce', jsrMocks);
+    .provider('jsrMocks', jsrMocks);
 
 function jsrMocks() {
 
