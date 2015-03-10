@@ -49,7 +49,7 @@ function myCallback(args){
 	
 </script>
 <!-- since this is not a VF page, we load a shim library instead for JSR calls -->
-<script src="/static/bower_components/jsr-mocks/dist/jsr-mocks.js"></script>
+<script src="/static/bower_components/jsr-mocks/dist/jsr-mocks.provider.js"></script>
 <!-- now our main script can call JSR methods in VF and mock methods in HTML Page with same syntax -->
 <script src="/static/js/main.js"></script>
 
