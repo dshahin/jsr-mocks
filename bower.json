@@ -1,7 +1,7 @@
 {
     "name": "jsr-mocks",
-    "version": "0.0.8",
-    "main": "dist/jsr-mocks.js",
+    "version": "0.0.9",
+    "main": "dist/jsr-mocks.provider.js",
     "ignore": [
         "source",
         "spec",
@@ -15,7 +15,6 @@
         "README.md"
     ],
     "dependencies": {
-        "jquery": ">=1.10.2"
     },
     "devDependencies": {
     }
