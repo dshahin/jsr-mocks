@@ -58,34 +58,54 @@ function myCallback(args){
 main.js can now look like this
 
 ```javascript
-$(document).ready(function(){
 
-	//this is where your app page logic lives
-	
-	Visualforce.remoting.Manager.invokeAction (
-		configSettings.jsr.myFunction,
-		'now I am ready',
-		function(result,event){
-			console.log('mock result:',result);
-		 	if(event.status){
-
-				$.myOtherModule({backgroundColor:'lightgreen',selector: '#ready2', message: result.message });
-		 	}
-		}
-	);
-
-	Visualforce.remoting.Manager.invokeAction (
-		configSettings.jsr.myOtherFunction,
-		'and I am ready now too',
-		function(result,event){
-			console.log('mock result:',result);
-		 	if(event.status){
-
-				$.myOtherModule({backgroundColor:'lightblue',selector: '#ready3', message: result.message});
-
-		 	}
-		}
-	);
-
+angular.module('myModule', ['jsrMocks']) //inject dependency
+  .config(function ($stateProvider, $urlRouterProvider, jsrMocksProvider){
+    jsrMocksProvider.setMocks(configSettings.mocks);//point to global config variable (see html)
 });
+```
+factories can now include the jsrMocks object and override Visualforce selectively
+```javascript
+'use strict';
+
+angular.module('myModule').factory('PatientFactory',  PatientFactory );
+
+function PatientFactory($q, $rootScope, $log, jsrMocks) {
+    
+	//insert the shim
+    var Visualforce = jsrMocks;
+
+	var factory = {
+		GetPatient : GetPatient
+	};
+
+	return factory;
+
+	function GetPatient (patientId) {
+        var deferred = $q.defer();
+        
+        Visualforce.remoting.Manager.invokeAction(
+            configSettings.remoteActions.getPatient,
+            patientId,//this is the first argument to jsr method
+            function(result, event) {
+                $rootScope.$apply(function() {
+                    if (event.status) {
+                    	deferred.resolve(result);
+                    } else {
+                    	deferred.reject(event);
+                    }
+                });
+            }
+        );
+		//always return a promise when making async calls
+        return deferred.promise;
+	}
+
+
+
+	
+}
+
+
+
 ```

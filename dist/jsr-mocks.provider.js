@@ -1,35 +1,21 @@
 'use strict';
 
 angular.module('jsrMocks', [])
-    .provider('jsrMocks', jsrMocks);
+    .provider('Visualforce', jsrMocks);
 
 function jsrMocks() {
-    var title;
+
     var $mocks;
 
-
     return {
-
-        setTitle: function(value) {
-            title = value;
-        },
 
         setMocks: function(mocks) {
             $mocks = mocks;
         },
 
-        showMocks: function(){
-            console.log('the mocks',$mocks);
-        },
-
-        config: function() {
-
-        },
-
         $get: function() {
             if(!window.Visualforce){
                 return {
-                    title: "foobar " + title,
                     remoting: {
                         Manager: {
                             invokeAction: function() {
@@ -54,8 +40,6 @@ function jsrMocks() {
                 return Visualforce;
             }
         }
-
-
 
     }
 }

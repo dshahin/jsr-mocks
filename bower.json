@@ -1,6 +1,6 @@
 {
     "name": "jsr-mocks",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "main": "dist/jsr-mocks.provider.js",
     "ignore": [
         "source",
