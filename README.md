@@ -8,7 +8,7 @@ Use to test local versions of single page salesforce apps without deploying to s
 intallation
 ===========
 ```bower install jsr-mocks```
-jsr-mocks will expect a global object named $config with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
+jsr-mocks will expect a global object named ```configSettings``` with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
 ```html
 <head>
 
@@ -20,9 +20,9 @@ jsr-mocks will expect a global object named $config with a property called mocks
 <div id="ready3" class="ready"><img src="http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif" alt="loading"/></div>
 <script src="/static/bower_components/jquery/dist/jquery.js"></script>
 <script src="/static/js/myOtherModule.js"></script>
-<!-- first resolve VF variables into $config, our only global object -->
+<!-- first resolve VF variables into configSettings, our only global object -->
 <script>
-var $config = {
+var configSettings = {
 	jsr: {
 		myFunction :'{!$RemoteAction.MyCustomController.myFunction}',
 		myOtherFunction :'{!$RemoteAction.MyCustomController.myOtherFunction}'
@@ -63,7 +63,7 @@ $(document).ready(function(){
 	//this is where your app page logic lives
 	
 	Visualforce.remoting.Manager.invokeAction (
-		$config.jsr.myFunction,
+		configSettings.jsr.myFunction,
 		'now I am ready',
 		function(result,event){
 			console.log('mock result:',result);
@@ -75,7 +75,7 @@ $(document).ready(function(){
 	);
 
 	Visualforce.remoting.Manager.invokeAction (
-		$config.jsr.myOtherFunction,
+		configSettings.jsr.myOtherFunction,
 		'and I am ready now too',
 		function(result,event){
 			console.log('mock result:',result);
