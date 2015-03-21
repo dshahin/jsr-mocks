@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('jsrMocks', [])
-    .provider('jsrMocks', jsrMocks);
+    .provider('jsrMocks', jsrMocks)
+    .factory('jsr',jsr);
 
 function jsrMocks() {
 
@@ -42,5 +43,44 @@ function jsrMocks() {
         }
 
     }
+}
+
+function jsr(jsrMocks,$q,$rootScope){
+    var Visualforce = jsrMocks;
+
+    console.log('testing', arguments, Visualforce);
+
+    return function(request) {
+        var deferred = $q.defer();
+        
+        var parameters = [request.method];
+
+        if(request.args){
+            
+            for(var i=0;i<request.args.length;i++){
+                parameters.push(request.args[i]);
+            }
+        }
+        
+        var callback = function(result, event) {
+            $rootScope.$apply(function() {
+                if (event.status) {
+                    deferred.resolve(result);
+                } else {
+                    deferred.reject(event);
+                }
+            });
+        }
+        
+        parameters.push(callback);
+        
+        if(request.options){
+            parameters.push(request.options);
+        }
+
+        Visualforce.remoting.Manager.invokeAction.apply(Visualforce.remoting.Manager, parameters);
+
+        return deferred.promise;
+    };
 }
 
