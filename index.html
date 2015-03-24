@@ -42,7 +42,30 @@
 <a id="intallation" class="anchor" href="#intallation" aria-hidden="true"><span class="octicon octicon-link"></span></a>intallation</h1>
 
 <p><code>bower install jsr-mocks</code>
-jsr-mocks will expect a global object named <code>configSettings</code> with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.</p>
+Configure jsr-mocks to expect a global object named <code>configSettings</code> with a property called <code>mocks</code></p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span>;
+
+angular.module(<span class="pl-s"><span class="pl-pds">'</span>App<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>ngAnimate<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ngSanitize<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ui.router<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>jsrMocks<span class="pl-pds">'</span></span>])
+
+
+  .config(<span class="pl-k">function</span> (<span class="pl-smi">$stateProvider</span>, <span class="pl-smi">$urlRouterProvider</span>,<span class="pl-smi">jsrMocksProvider</span>) {
+    $stateProvider
+      .state(<span class="pl-s"><span class="pl-pds">'</span>home<span class="pl-pds">'</span></span>, {
+        url<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>,
+        templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>app/main/main.html<span class="pl-pds">'</span></span>,
+        controller<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>MainController<span class="pl-pds">'</span></span>
+      });
+
+    $urlRouterProvider.otherwise(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>);
+
+    <span class="pl-c">//configure jsr-mocks</span>
+    jsrMocksProvider.setMocks(configSettings.mocks);
+
+  });
+;</pre></div>
+
+<p>Now in your VF page, you must resolve the names of your Javascript Remote Actions.</p>
 
 <div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">head</span>&gt;
 
@@ -57,7 +80,7 @@ jsr-mocks will expect a global object named <code>configSettings</code> with a p
 <span class="pl-c">&lt;!-- first resolve VF variables into configSettings, our only global object --&gt;</span>
 <span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1"><span class="pl-k">var</span> configSettings <span class="pl-k">=</span> {</span>
-<span class="pl-s1">    jsr<span class="pl-k">:</span> {</span>
+<span class="pl-s1">    remoteActions<span class="pl-k">:</span> {</span>
 <span class="pl-s1">        myFunction <span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myFunction}<span class="pl-pds">'</span></span>,</span>
 <span class="pl-s1">        myOtherFunction <span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myOtherFunction}<span class="pl-pds">'</span></span></span>
 <span class="pl-s1">    },</span>
@@ -96,9 +119,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span cla
     jsrMocksProvider.setMocks(configSettings.mocks);<span class="pl-c">//point to global config variable (see html)</span>
 });</pre></div>
 
-<p>Now you can use the newly provided jsr method to automatically wrap the response in a promise, allowing you to 
-  tame your asynchronous responses easily.
-</p>
+<p>Now you can use the newly provided jsr method</p>
 
 <div class="highlight highlight-javascript"><pre>jsr({
     method<span class="pl-k">:</span> configSettings.remoteActions.communityUserId, <span class="pl-c">//required</span>
@@ -149,14 +170,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span cla
         <span class="pl-c">//always return a promise when making async calls</span>
         <span class="pl-k">return</span> deferred.promise;
     }
-
-
-
-
-}
-
-
-</pre></div>
+}</pre></div>
       </section>
     </div>
 
