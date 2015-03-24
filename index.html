@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Jsr-mocks : a mock shim for javascript remoting">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jsr-mocks</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/dshahin/jsr-mocks">View on GitHub</a>
+
+          <h1 id="project_title">Jsr-mocks</h1>
+          <h2 id="project_tagline">a mock shim for javascript remoting</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/dshahin/jsr-mocks/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/dshahin/jsr-mocks/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="jsr-mocks" class="anchor" href="#jsr-mocks" aria-hidden="true"><span class="octicon octicon-link"></span></a>jsr-mocks</h1>
+
+<p>a mock shim for javascript remoting</p>
+
+<p>Use to test local versions of single page salesforce apps without deploying to server</p>
+
+<h1>
+<a id="intallation" class="anchor" href="#intallation" aria-hidden="true"><span class="octicon octicon-link"></span></a>intallation</h1>
+
+<p><code>bower install jsr-mocks</code>
+jsr-mocks will expect a global object named <code>configSettings</code> with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">head</span>&gt;
+
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/css/main.css<span class="pl-pds">"</span></span> /&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>ready<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ready<span class="pl-pds">"</span></span>&gt;I am ready already&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>ready2<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ready<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>loading<span class="pl-pds">"</span></span>/&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>ready3<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ready<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://s25.postimage.org/ykwiwxw23/ajax_loader_2.gif<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>loading<span class="pl-pds">"</span></span>/&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/bower_components/jquery/dist/jquery.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/js/myOtherModule.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-c">&lt;!-- first resolve VF variables into configSettings, our only global object --&gt;</span>
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1"><span class="pl-k">var</span> configSettings <span class="pl-k">=</span> {</span>
+<span class="pl-s1">    jsr<span class="pl-k">:</span> {</span>
+<span class="pl-s1">        myFunction <span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myFunction}<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">        myOtherFunction <span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myOtherFunction}<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">    },</span>
+<span class="pl-s1">    mocks <span class="pl-k">:</span>{</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myFunction}<span class="pl-pds">'</span></span> <span class="pl-k">:</span> {</span>
+<span class="pl-s1">            timeout <span class="pl-k">:</span> <span class="pl-c1">2000</span>, <span class="pl-c">//2 seconds with inline callback</span></span>
+<span class="pl-s1">            <span class="pl-en">method</span> : <span class="pl-k">function</span>(<span class="pl-smi">args</span>){   </span>
+<span class="pl-s1">                <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>args<span class="pl-pds">'</span></span>,args);</span>
+<span class="pl-s1">                <span class="pl-k">return</span> { message<span class="pl-k">:</span>  args[<span class="pl-c1">1</span>]}</span>
+<span class="pl-s1">            }</span>
+<span class="pl-s1">        },</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>{!$RemoteAction.MyCustomController.myOtherFunction}<span class="pl-pds">'</span></span> <span class="pl-k">:</span> {</span>
+<span class="pl-s1">            timeout <span class="pl-k">:</span> <span class="pl-c1">3000</span>, <span class="pl-c">//3 seconds with named callback function</span></span>
+<span class="pl-s1">            method <span class="pl-k">:</span> myCallback</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}; </span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">function</span> <span class="pl-en">myCallback</span>(<span class="pl-smi">args</span>){</span>
+<span class="pl-s1">    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">'</span>args<span class="pl-pds">'</span></span>,args);</span>
+<span class="pl-s1">    <span class="pl-k">return</span> { message<span class="pl-k">:</span>  args[<span class="pl-c1">1</span>] <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> says the other callback<span class="pl-pds">'</span></span>}</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-c">&lt;!-- since this is not a VF page, we load a shim library instead for JSR calls --&gt;</span>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/bower_components/jsr-mocks/dist/jsr-mocks.provider.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-c">&lt;!-- now our main script can call JSR methods in VF and mock methods in HTML Page with same syntax --&gt;</span>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/static/js/main.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+</pre></div>
+
+<p>main.js can now look like this</p>
+
+<div class="highlight highlight-javascript"><pre>
+angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>jsrMocks<span class="pl-pds">'</span></span>]) <span class="pl-c">//inject dependency</span>
+  .config(<span class="pl-k">function</span> (<span class="pl-smi">$stateProvider</span>, <span class="pl-smi">$urlRouterProvider</span>, <span class="pl-smi">jsrMocksProvider</span>){
+    jsrMocksProvider.setMocks(configSettings.mocks);<span class="pl-c">//point to global config variable (see html)</span>
+});</pre></div>
+
+<p>factories can now include the jsrMocks object and override Visualforce selectively</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span>;
+
+angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span class="pl-pds">'</span></span>).factory(<span class="pl-s"><span class="pl-pds">'</span>PatientFactory<span class="pl-pds">'</span></span>,  PatientFactory );
+
+<span class="pl-k">function</span> <span class="pl-en">PatientFactory</span>(<span class="pl-smi">$q</span>, <span class="pl-smi">$rootScope</span>, <span class="pl-smi">$log</span>, <span class="pl-smi">jsrMocks</span>) {
+
+    <span class="pl-c">//insert the shim</span>
+    <span class="pl-k">var</span> Visualforce <span class="pl-k">=</span> jsrMocks;
+
+    <span class="pl-k">var</span> factory <span class="pl-k">=</span> {
+        GetPatient <span class="pl-k">:</span> GetPatient
+    };
+
+    <span class="pl-k">return</span> factory;
+
+    <span class="pl-k">function</span> <span class="pl-en">GetPatient</span> (<span class="pl-smi">patientId</span>) {
+        <span class="pl-k">var</span> deferred <span class="pl-k">=</span> $q.<span class="pl-c1">defer</span>();
+
+        Visualforce.remoting.Manager.invokeAction(
+            configSettings.remoteActions.getPatient,
+            patientId,<span class="pl-c">//this is the first argument to jsr method</span>
+            <span class="pl-k">function</span>(<span class="pl-smi">result</span>, <span class="pl-smi">event</span>) {
+                $rootScope.$<span class="pl-c1">apply</span>(<span class="pl-k">function</span>() {
+                    <span class="pl-k">if</span> (<span class="pl-c1">event</span>.<span class="pl-c1">status</span>) {
+                        deferred.resolve(result);
+                    } <span class="pl-k">else</span> {
+                        deferred.reject(<span class="pl-c1">event</span>);
+                    }
+                });
+            }
+        );
+        <span class="pl-c">//always return a promise when making async calls</span>
+        <span class="pl-k">return</span> deferred.promise;
+    }
+
+
+
+
+}
+
+
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jsr-mocks maintained by <a href="https://github.com/dshahin">dshahin</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
