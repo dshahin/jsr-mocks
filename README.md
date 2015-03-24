@@ -64,7 +64,22 @@ angular.module('myModule', ['jsrMocks']) //inject dependency
     jsrMocksProvider.setMocks(configSettings.mocks);//point to global config variable (see html)
 });
 ```
-factories can now include the jsrMocks object and override Visualforce selectively
+Now you can use the newly provided jsr method
+
+```javascript
+jsr({
+	method: configSettings.remoteActions.communityUserId, //required
+        args: [patient.id],  //only required if function expects arguments
+        options : {buffer: true, escape: true, timeout: 30000} //optional
+}).then(function(communityUserId) {
+        if (communityUserId) {
+            patientTaskModal.patient.communityUserId = communityUserId;
+            patientTaskModal.patientIsCommunityUser = true;
+        }
+        patientTaskModal.ready = true;
+});
+```
+or factories can just include the jsrMocks object and override Visualforce selectively
 ```javascript
 'use strict';
 
@@ -84,6 +99,7 @@ function PatientFactory($q, $rootScope, $log, jsrMocks) {
 	function GetPatient (patientId) {
         var deferred = $q.defer();
         
+        //always use namespace-safe jsr invocations
         Visualforce.remoting.Manager.invokeAction(
             configSettings.remoteActions.getPatient,
             patientId,//this is the first argument to jsr method
