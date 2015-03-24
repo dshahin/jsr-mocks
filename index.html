@@ -96,7 +96,9 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span cla
     jsrMocksProvider.setMocks(configSettings.mocks);<span class="pl-c">//point to global config variable (see html)</span>
 });</pre></div>
 
-<p>Now you can use the newly provided jsr method</p>
+<p>Now you can use the newly provided jsr method to automatically wrap the response in a promise, allowing you to 
+  tame your asynchronous responses easily.
+</p>
 
 <div class="highlight highlight-javascript"><pre>jsr({
     method<span class="pl-k">:</span> configSettings.remoteActions.communityUserId, <span class="pl-c">//required</span>
