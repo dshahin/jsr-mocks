@@ -96,7 +96,21 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span cla
     jsrMocksProvider.setMocks(configSettings.mocks);<span class="pl-c">//point to global config variable (see html)</span>
 });</pre></div>
 
-<p>factories can now include the jsrMocks object and override Visualforce selectively</p>
+<p>Now you can use the newly provided jsr method</p>
+
+<div class="highlight highlight-javascript"><pre>jsr({
+    method<span class="pl-k">:</span> configSettings.remoteActions.communityUserId, <span class="pl-c">//required</span>
+        args<span class="pl-k">:</span> [patient.<span class="pl-c1">id</span>],  <span class="pl-c">//only required if function expects arguments</span>
+        options <span class="pl-k">:</span> {buffer<span class="pl-k">:</span> <span class="pl-c1">true</span>, escape<span class="pl-k">:</span> <span class="pl-c1">true</span>, timeout<span class="pl-k">:</span> <span class="pl-c1">30000</span>} <span class="pl-c">//optional</span>
+}).then(<span class="pl-k">function</span>(<span class="pl-smi">communityUserId</span>) {
+        <span class="pl-k">if</span> (communityUserId) {
+            patientTaskModal.patient.communityUserId <span class="pl-k">=</span> communityUserId;
+            patientTaskModal.patientIsCommunityUser <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+        }
+        patientTaskModal.ready <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+});</pre></div>
+
+<p>or factories can just include the jsrMocks object and override Visualforce selectively</p>
 
 <div class="highlight highlight-javascript"><pre><span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span>;
 
@@ -116,6 +130,7 @@ angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span cla
     <span class="pl-k">function</span> <span class="pl-en">GetPatient</span> (<span class="pl-smi">patientId</span>) {
         <span class="pl-k">var</span> deferred <span class="pl-k">=</span> $q.<span class="pl-c1">defer</span>();
 
+        <span class="pl-c">//always use namespace-safe jsr invocations</span>
         Visualforce.remoting.Manager.invokeAction(
             configSettings.remoteActions.getPatient,
             patientId,<span class="pl-c">//this is the first argument to jsr method</span>
