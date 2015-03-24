@@ -32,7 +32,7 @@ angular.module('App', ['ngAnimate', 'ngSanitize', 'ui.router', 'jsrMocks'])
   });
 ;
 ```
-
+Now in your VF page, you must resolve the names of your Javascript Remote Actions.
 ```html
 <head>
 
@@ -47,7 +47,7 @@ angular.module('App', ['ngAnimate', 'ngSanitize', 'ui.router', 'jsrMocks'])
 <!-- first resolve VF variables into configSettings, our only global object -->
 <script>
 var configSettings = {
-	jsr: {
+	remoteActions: {
 		myFunction :'{!$RemoteAction.MyCustomController.myFunction}',
 		myOtherFunction :'{!$RemoteAction.MyCustomController.myOtherFunction}'
 	},
