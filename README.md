@@ -8,7 +8,31 @@ Use to test local versions of single page salesforce apps without deploying to s
 intallation
 ===========
 ```bower install jsr-mocks```
-jsr-mocks will expect a global object named ```configSettings``` with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
+Configure jsr-mocks to expect a global object named ```configSettings``` with a property called ```mocks```
+
+```javascript
+'use strict';
+
+angular.module('App', ['ngAnimate', 'ngSanitize', 'ui.router', 'jsrMocks'])
+  
+
+  .config(function ($stateProvider, $urlRouterProvider,jsrMocksProvider) {
+    $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'app/main/main.html',
+        controller: 'MainController'
+      });
+
+    $urlRouterProvider.otherwise('/');
+    
+    //configure jsr-mocks
+    jsrMocksProvider.setMocks(configSettings.mocks);
+
+  });
+;
+```
+
 ```html
 <head>
 
