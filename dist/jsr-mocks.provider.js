@@ -41,7 +41,7 @@ function jsrMocks() {
             }
 
             function invokeStaticAction(){
-                $log.log('$mocks is an object:', $mocks);
+                $log.debug('$mocks is an object:', $mocks);
                 var lastArg = arguments[arguments.length - 1],
                     callback = lastArg,
                     mock = $mocks[arguments[0]],
@@ -58,7 +58,7 @@ function jsrMocks() {
             }
 
             function invokeHTTPAction(){
-                $log.log('$mocks is not an object:', mockType, $mocks);
+                $log.debug('$mocks is not an object:', mockType, $mocks);
                 var lastArg = arguments[arguments.length - 1],
                     callback = lastArg,
                     mockName = arguments[0],
