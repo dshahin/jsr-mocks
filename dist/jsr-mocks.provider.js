@@ -85,8 +85,7 @@ function jsrMocks() {
                         }, 100);
                     }). 
                     error(function(data, status, headers, config) {
-                        alert('error');
-                        $log.debug(data, status, headers, config);
+                        $log.error(data, status, headers, config);
                     });
                     
             }   
