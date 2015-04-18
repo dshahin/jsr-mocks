@@ -101,6 +101,8 @@ jsr({
             patientTaskModal.patientIsCommunityUser = true;
         }
         patientTaskModal.ready = true;
+}).catch(function(ex){
+	$log.error(ex);
 });
 ```
 or factories can just include the jsrMocks object and override Visualforce selectively
