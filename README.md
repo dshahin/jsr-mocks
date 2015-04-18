@@ -8,7 +8,7 @@ Use to test local versions of single page salesforce apps without deploying to s
 intallation
 ===========
 ```bower install jsr-mocks#angular```
-jsr-mocks will expect a global object named ```configSettings``` with a property called mocks containing local methods that don't need a Salesforce server, and a timeout to simulate jsr load times.
+Configure jsr-mocks to expect a global object named ```configSettings``` with a property called ```mocks```
 
 ```javascript
 'use strict';
@@ -47,7 +47,7 @@ Now in your VF page, you must resolve the names of your Javascript Remote Action
 <!-- first resolve VF variables into configSettings, our only global object -->
 <script>
 var configSettings = {
-	jsr: {
+	remoteActions: {
 		myFunction :'{!$RemoteAction.MyCustomController.myFunction}',
 		myOtherFunction :'{!$RemoteAction.MyCustomController.myOtherFunction}'
 	},
