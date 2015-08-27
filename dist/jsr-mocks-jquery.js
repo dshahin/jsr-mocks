@@ -2,15 +2,12 @@
     //if we can't find a specific jsr mock method
     var genericMock ={
         method : function(arguments){
-            console.log('generic mock args:', arguments);
+            alert('generic mock args:', arguments);
         },
         timeout : 500 //half second
     }
 
-    if (window.Visualforce) {
-        console.log('we are in vf');
-    }else if (!window.Visualforce){
-        console.log('we are in mocking vf');
+    if (!window.Visualforce){
         var $mocks = window.$SPA.mocks || {};
         window.Visualforce = {
             //Visualforce.remoting.Manager.invokeAction
