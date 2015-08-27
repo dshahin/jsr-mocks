@@ -103,8 +103,6 @@ function jsrMocks() {
 function jsr(jsrMocks,$q,$rootScope){
     var Visualforce = jsrMocks;
 
-    console.log('testing', arguments, Visualforce);
-
     return function(request) {
         var deferred = $q.defer();
         
