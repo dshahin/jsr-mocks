@@ -68,7 +68,7 @@ function jsrMocks() {
                     url = $mocks + mockName,
                     event = {
                         status: true
-                    };;
+                    };
 
                 if (typeof(callback) === 'object') {
                     callback = arguments[arguments.length - 2];
