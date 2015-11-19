@@ -16,8 +16,8 @@ function jsrMocks() {
             $mocks = mocks;
         },
 
-        $get: function($log,$http) {
-            if(!window.Visualforce){
+        $get: function($log,$http,$window,$timeout) {
+            if(! $window.Visualforce){
                 var mocker,
                     mockType = typeof($mocks);
                 if(mockType === 'object'){
@@ -37,7 +37,7 @@ function jsrMocks() {
                 };
                 
             }else{
-                return Visualforce;
+                return $window.Visualforce;
             }
 
             function invokeStaticAction(){
@@ -52,7 +52,7 @@ function jsrMocks() {
                 if (typeof(callback) === 'object') {
                     callback = arguments[arguments.length - 2];
                 }
-                setTimeout(function() {
+                $timeout(function() {
                     callback(result, event);
                 }, mock.timeout);
             }
@@ -93,7 +93,7 @@ function jsrMocks() {
         }
 
 
-    }
+    };
 
 
 }
@@ -123,7 +123,7 @@ function jsr(jsrMocks,$q,$rootScope){
                     deferred.reject(event);
                 }
             });
-        }
+        };
         
         parameters.push(callback);
         
