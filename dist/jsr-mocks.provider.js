@@ -16,16 +16,13 @@ function jsrMocks() {
             $mocks = mocks;
         },
 
-        $get: function($log,$http) {
-            if(!window.Visualforce){
+        $get: function($log,$http,$window,$timeout) {
+            if(! $window.Visualforce){
                 var mocker,
                     mockType = typeof($mocks);
                 if(mockType === 'object'){
                     mocker = invokeStaticAction;
                     
-                }else{
-                    
-                    mocker = invokeHTTPAction;
                 }
                     
                 return {
@@ -37,7 +34,7 @@ function jsrMocks() {
                 };
                 
             }else{
-                return Visualforce;
+                return $window.Visualforce;
             }
 
             function invokeStaticAction(){
@@ -52,48 +49,15 @@ function jsrMocks() {
                 if (typeof(callback) === 'object') {
                     callback = arguments[arguments.length - 2];
                 }
-                setTimeout(function() {
+                $timeout(function() {
                     callback(result, event);
                 }, mock.timeout);
             }
 
-            function invokeHTTPAction(){
-                $log.debug('$mocks is not an object:', mockType, $mocks);
-                var lastArg = arguments[arguments.length - 1],
-                    callback = lastArg,
-                    mockName = arguments[0],
-                    regex = /(\w*)?}/,
-                    match = regex.exec(mockName),
-                    mockName = match[0].split('\}')[0],
-                    url = $mocks + mockName,
-                    event = {
-                        status: true
-                    };;
-
-                if (typeof(callback) === 'object') {
-                    callback = arguments[arguments.length - 2];
-                }
-
-                $log.debug('http mock url:',url);
-
-                $http.get(url).
-                    success(function(data,status,headers,config){
-                        var result = data;
-                        $log.debug(data);
-                        setTimeout(function() {
-                            callback(result, event);
-                        }, 100);
-                    }). 
-                    error(function(data, status, headers, config) {
-                        $log.error(data, status, headers, config);
-                    });
-                    
-            }   
-
         }
 
 
-    }
+    };
 
 
 }
@@ -102,8 +66,6 @@ function jsrMocks() {
 
 function jsr(jsrMocks,$q,$rootScope){
     var Visualforce = jsrMocks;
-
-    console.log('testing', arguments, Visualforce);
 
     return function(request) {
         var deferred = $q.defer();
@@ -125,7 +87,7 @@ function jsr(jsrMocks,$q,$rootScope){
                     deferred.reject(event);
                 }
             });
-        }
+        };
         
         parameters.push(callback);
         
