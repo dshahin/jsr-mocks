@@ -5,7 +5,7 @@ a mock shim for javascript remoting
 
 Use to test local versions of single page salesforce apps without deploying to server
 
-intallation
+install
 ===========
 ```bower install jsr-mocks#angular```
 Configure jsr-mocks to expect a global object named ```configSettings``` with a property called ```mocks```
