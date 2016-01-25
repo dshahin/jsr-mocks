@@ -1,11 +1,11 @@
 (function($) {
     //if we can't find a specific jsr mock method
     var genericMock ={
-        method : function(arguments){
-            alert('generic mock args:', arguments);
+        method : function(args){
+            alert('generic mock args:', args);
         },
         timeout : 500 //half second
-    }
+    };
 
     if (!window.Visualforce){
         var $mocks = window.$SPA.mocks || {};
@@ -28,11 +28,8 @@
                     }
                 }
             }
-        }
+        };
     }
-
-    
-   
 
     $.jsr = function(request) {
 
@@ -56,7 +53,7 @@
                 deferred.reject(event);
             }
 
-        }
+        };
 
         parameters.push(callback);
 
