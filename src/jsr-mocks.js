@@ -6,7 +6,7 @@ var genericMock ={
     timeout : 500 //half second
 };
 
-var $mocks = window.$SPA.mocks || {};
+var $mocks =  {};
 
 var setMocks = function(location){
     $mocks = location;
