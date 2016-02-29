@@ -1,0 +1,27 @@
+<html>
+	
+<script src="jsr.bundle.js"></script>
+<script>
+	jsr.setMocks({
+		foo :{
+			timeout: 500,
+			method : function(args){   
+                console.log('args',args);
+                return { message:  args}
+            }
+		}
+	});
+	jsr.promise({
+		method:'foo',
+		args: ['first','second','third']
+
+	})
+	.then(function(result){
+		console.log(result);
+	}).catch(function(error){
+		console.error(error);
+	});
+</script>
+<h1>hey now</h1>
+</html>
+
