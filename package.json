@@ -1,0 +1,19 @@
+{
+  "name": "jsr-mocks",
+  "version": "1.0.0",
+  "description": "jsr-mocks =========",
+  "main": "jsr.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dshahin/jsr-mocks.git"
+  },
+  "author": "Dan Shahin <dan@danshahin.com> (http://www.danshahin.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dshahin/jsr-mocks/issues"
+  },
+  "homepage": "https://github.com/dshahin/jsr-mocks#readme"
+}

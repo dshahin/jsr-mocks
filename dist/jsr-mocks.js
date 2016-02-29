@@ -22,6 +22,6 @@
 					}
 				}
 			}
-		}
+		};
 	}
 })(window, jQuery, configSettings);
