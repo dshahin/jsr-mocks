@@ -1,6 +1,6 @@
 {
   "name": "jsr-mocks",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "jsr-mocks =========",
   "main": "dist/jsr-mocks.provider.js",
   "scripts": {
