@@ -3,7 +3,7 @@ import angular from 'angular';
 
 //if we can't find a specific jsr mock method
 var genericMock ={
-    method : function(args){
+    method : args => {
         alert('mock not implemented for '  + args[0]);
         console.error('mock not implemented for ', args);
     },
@@ -19,7 +19,7 @@ function jsrMocks() {
             $mockServer = mockServer;
         },
 
-        $get: function ($log, $http, $window, $timeout) {
+        $get: function ($timeout) {
             'ngInject';
             if (!window.Visualforce) {
 
