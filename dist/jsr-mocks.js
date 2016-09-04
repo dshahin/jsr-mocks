@@ -1,6 +1,6 @@
-(function(global, $, configSettings){
+(function(global, configSettings){
 
-	
+
 	if(!global.Visualforce){
 		var $mocks = configSettings.mocks;
 		global.Visualforce = {
@@ -24,4 +24,4 @@
 			}
 		};
 	}
-})(window, jQuery, configSettings);
+})(window, configSettings);
