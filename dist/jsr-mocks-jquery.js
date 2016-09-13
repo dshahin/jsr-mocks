@@ -8,7 +8,7 @@
     };
 
     if (!window.Visualforce){
-        var $mocks = window.$SPA.mocks || {};
+        var $mocks = window.configSettings.mocks || {};
         window.Visualforce = {
             //Visualforce.remoting.Manager.invokeAction
             remoting :{

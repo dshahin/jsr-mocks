@@ -1,5 +1,6 @@
 'use strict';
 
+jsr.$inject = ["jsrMocks", "$q", "$rootScope"];
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -23,6 +24,8 @@ var genericMock = {
 };
 
 function jsrMocks() {
+    "ngInject";
+
     var $mocks;
     var $mockServer;
     return {
@@ -31,8 +34,8 @@ function jsrMocks() {
             $mockServer = mockServer;
         },
 
-        $get: function $get($log, $http, $window, $timeout) {
-            'ngInject';
+        $get: ["$timeout", function $get($timeout) {
+            "ngInject";
 
             if (!window.Visualforce) {
 
@@ -69,13 +72,13 @@ function jsrMocks() {
                     callback(result, event);
                 }, mock.timeout);
             }
-        }
+        }]
 
     };
 }
 
 function jsr(jsrMocks, $q, $rootScope) {
-    'ngInject';
+    "ngInject";
 
     var Visualforce = jsrMocks;
 

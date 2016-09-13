@@ -11,6 +11,7 @@ var genericMock ={
 };
 
 function jsrMocks() {
+    "ngInject";
     var $mocks;
     var $mockServer;
     return {
@@ -20,7 +21,7 @@ function jsrMocks() {
         },
 
         $get: function ($timeout) {
-            'ngInject';
+            "ngInject";
             if (!window.Visualforce) {
 
                 return {
@@ -53,7 +54,7 @@ function jsrMocks() {
                 if (typeof (callback) === 'object') {
                     callback = arguments[arguments.length - 2];
                 }
-                $timeout(function () {
+                $timeout( () => {
                     callback(result, event);
                 }, mock.timeout);
             }
@@ -65,7 +66,7 @@ function jsrMocks() {
 }
 
 function jsr(jsrMocks, $q, $rootScope) {
-    'ngInject';
+    "ngInject";
     var Visualforce = jsrMocks;
 
     return function (request) {
@@ -79,8 +80,8 @@ function jsr(jsrMocks, $q, $rootScope) {
                 parameters.push(request.args[i]);
             }
         }
-        var callback = function (result, event) {
-            $rootScope.$apply(function () {
+        var callback = (result, event) => {
+            $rootScope.$apply( () => {
                 if (event.status) {
                     deferred.resolve(result);
                 } else {
