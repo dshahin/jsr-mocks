@@ -1,6 +1,6 @@
 {
   "name": "jsr-mocks",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "jsr-mocks =========",
   "main": "dist/jsr-mocks.angular.js",
   "scripts": {

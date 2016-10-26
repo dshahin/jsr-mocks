@@ -19,6 +19,11 @@
                             mock = $mocks[arguments[0]] || genericMock,
                             result = mock.method(arguments) ,
                             event = {status : true};
+			
+			if (mock.error) {
+                            event.status = false;
+                            event.message = mock.error;
+                        }
                         if(typeof(callback) === 'object'){
                             callback = arguments[arguments.length - 2];
                         }
