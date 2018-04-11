@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/dshahin/jsr-mocks#readme",
   "devDependencies": {
-    "babel-preset-es2015": "6.1.2"
+    "babel-preset-es2015": "6.24.1"
   }
 }
